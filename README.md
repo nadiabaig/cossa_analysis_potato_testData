@@ -21,12 +21,51 @@ Modified pipeline to get the kmers and SNPs for a potato test dataset
 ## :desktop_computer: Getting Started
 
 ### :keyboard: Installation
-1. r else do,
+1. bedtools
 ```sh
-git clone https://github.com/smajidian/extract_poly
-cd extract_poly
-make 
+wget https://github.com/arq5x/bedtools2/releases/download/v2.31.0/bedtools.static
+mv bedtools.static bedtools
+chmod a+x bedtools 
 ```
+2. TRIMMOMATIC
+```sh
+apt-get download trimmomatic
+mv trimmomatic_0.39+dfsg-2_all.deb ../
+mv trimmomatic_0.39+dfsg-2_all.deb ../
+dpkg -x trimmomatic_0.39+dfsg-2_all.deb /media/nadia.baig/Kmer
+```
+
+3. SRA toolkit
+```sh
+wget --output-document sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
+tar -vxzf sratoolkit.tar.gz
+cd sratoolkit.3.0.6-ubuntu64/
+export PATH=$PATH:/mnt/d/Softwares/sratoolkit.3.0.6-ubuntu64/bin
+which fastq-dump
+```
+4. bcftools
+```sh
+sudo apt-get -y install bcftools
+```
+
+5. Picard
+```sh
+ git clone https://github.com/broadinstitute/picard.git
+ cd picard/
+ ./gradle shadowJar # installing all dependencies
+ java -jar build/libs/picard.jar 
+```
+
+6. Freebayes
+```sh
+sudo apt-get install freebayes
+```
+
+7. IGV (Interative Genome Viewer)
+```sh
+ sudo apt -y install igv  
+```
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 ### Setting paths of the required tools and input data
