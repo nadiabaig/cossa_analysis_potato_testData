@@ -227,7 +227,7 @@ done
 
 ### Plot the kmers obtained for all the set algebra operation
 ```sh
-#creating plots
+#Note merge all *.bins from chromosmes into 1 txt file for each set algebra operation. If you have more than 2 set algebra comparsions then you can add dfs in dataframes= ... section of the code.
 import pandas as pd
 import matplotlib.pyplot as plt
 
