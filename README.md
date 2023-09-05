@@ -45,6 +45,7 @@ fastq22=/mnt/d/PotatoTools/Otolia/Otolia_S3_L001_R2_001.fastq
 
 wait
 glistmaker $fastq11 -w 31 -o $path/Otolia.all.read1
+
 glistmaker $fastq22 -w 31 -o $path/Otolia.all.read2
 echo {"step1 completed"}
 ```
@@ -61,17 +62,21 @@ glistquery Otolia.all.cutoff2_31_intrsec.list > Otolia.file.kmer
 ```sh
 !/bin/bash
 glistcompare  Otolia.all.cutoff2_31_intrsec.list Kuba.all.cutoff2_31_intrsec.list -d -o 1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba &
+
 glistcompare Otolia.all.cutoff2_31_intrsec.list  1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list -d -o 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba &
+
 glistcompare  Otolia.all.cutoff2_31_intrsec.list Laura.all.cutoff2_31_intrsec.list -d -o 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura &
+
 glistcompare Otolia.all.cutoff2_31_intrsec.list  3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list -d -o 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura &
-glistcompare  1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list -d -o 5.Otolia-bulk-specific-kmers.cutoff10to20-from-La
-ura &
-glistcompare 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list 1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list -d -o 6.Otolia-bulk-specific-kmers.cutoff10to20-from-Kub
-a &
-glistcompare 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list -d -o 7.Otolia-bulk-specific-kmers.cutoff10to20-
-from-none &
-glistcompare 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list -i -o 8.Otolia-bulk-specific-kmers.cutof
-f10to20-from-both
+
+glistcompare  1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list -d -o 5.Otolia-bulk-specific-kmers.cutoff10to20-from-Laura &
+
+glistcompare 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list 1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list -d -o 6.Otolia-bulk-specific-kmers.cutoff10to20-from-Kuba &
+
+glistcompare 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list -d -o 7.Otolia-bulk-specific-kmers.cutoff10to20-from-none &
+
+glistcompare 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list -i -o 8.Otolia-bulk-specific-kmers.cutoff10to20-from-both
+
 ```
 ### Basic stats for unique kmers in each comparison followed by kmer to FASTA conversion
 ```sh
@@ -119,44 +124,54 @@ l3="3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list.kmer.
 l7="7.Otolia-bulk-specific-kmers.cutoff10to20-from-none_31_0_diff1.list.kmer.fq.sai"
 l4="4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai"
 
-#not using for loop as it takes time other alternative is to run multiple commands in parallel with & operato
+#not using for loop as it takes time other alternative is to run multiple commands in parallel with & operator
+
 bwa samse ${reference} $l1 1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list.kmer.fq > 1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list.kmer.fq.sai.tmp &
+
 bwa samse ${reference} $l2 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq > 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq.sai.tmp &
+
 bwa samse  ${reference} $l3 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list.kmer.fq > 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list.kmer.fq.sai.tmp &
-bwa samse  ${reference} $l4 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq  > 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.tm
-p &
+
+bwa samse  ${reference} $l4 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq  > 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.tmp &
+
 bwa samse  ${reference} $l5 5.Otolia-bulk-specific-kmers.cutoff10to20-from-Laura_31_0_diff1.list.kmer.fq  > 5.Otolia-bulk-specific-kmers.cutoff10to20-from-Laura_31_0_diff1.list.kmer.fq.sai.tmp &
+
 bwa samse  ${reference} $l6 6.Otolia-bulk-specific-kmers.cutoff10to20-from-Kuba_31_0_diff1.list.kmer.fq > 6.Otolia-bulk-specific-kmers.cutoff10to20-from-Kuba_31_0_diff1.list.kmer.fq.sai.tmp &
+
 bwa samse  ${reference} $l7 7.Otolia-bulk-specific-kmers.cutoff10to20-from-none_31_0_diff1.list.kmer.fq > 7.Otolia-bulk-specific-kmers.cutoff10to20-from-none_31_0_diff1.list.kmer.fq.sai.tmp &
 
 wait
 
 samtools view -Sbh 1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list.kmer.fq.sai.tmp -o  1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.bam &
-samtools view -Sbh 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq.sai.tmp -o 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.b
-am &
+
+samtools view -Sbh 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq.sai.tmp -o 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.bam &
+
 samtools view -Sbh 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list.kmer.fq.sai.tmp -o 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list.kmer.fq.sai.tmp.bam &
-samtools view -Sbh 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.tmp -o 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.tmp
-.bam &
+
+samtools view -Sbh 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.tmp -o 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.tmp.bam &
+
 samtools view -Sbh 5.Otolia-bulk-specific-kmers.cutoff10to20-from-Laura_31_0_diff1.list.kmer.fq.sai.tmp -o 5.Otolia-bulk-specific-kmers.cutoff10to20-from-Laura_31_0_diff1.list.kmer.fq.sai.tmp.bam &
+
 samtools view -Sbh 6.Otolia-bulk-specific-kmers.cutoff10to20-from-Kuba_31_0_diff1.list.kmer.fq.sai.tmp -o 6.Otolia-bulk-specific-kmers.cutoff10to20-from-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.bam &
+
 samtools view -Sbh 7.Otolia-bulk-specific-kmers.cutoff10to20-from-none_31_0_diff1.list.kmer.fq.sai.tmp -o 7.Otolia-bulk-specific-kmers.cutoff10to20-from-none_31_0_diff1.list.kmer.fq.sai.tmp.bam &
 
 wait
 
-samtools sort -T 1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list.kmer.fq.sai.sort.tmp 1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 1.Otolia-b
-ulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam &
-samtools sort -T 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq.sai.sort.tmp 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.b
-am -o 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam &
-samtools sort -T 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list.kmer.fq.sai.sort.tmp 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 3.Otolia
--bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam &
-samtools sort -T 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.sort.tmp 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.tm
-p.bam -o 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam
-samtools sort -T 5.Otolia-bulk-specific-kmers.cutoff10to20-from-Laura_31_0_diff1.list.kmer.fq.sai.sort.tmp 5.Otolia-bulk-specific-kmers.cutoff10to20-from-Laura_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 5.Otolia-bu
-lk-specific-kmers.cutoff10to20-from-Laura_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam &
-samtools sort -T 6.Otolia-bulk-specific-kmers.cutoff10to20-from-Kuba_31_0_diff1.list.kmer.fq.sai.sort.tmp 6.Otolia-bulk-specific-kmers.cutoff10to20-from-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 6.Otolia-bulk
--specific-kmers.cutoff10to20-from-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam &
-samtools sort -T 7.Otolia-bulk-specific-kmers.cutoff10to20-from-none_31_0_diff1.list.kmer.fq.sai.sort.tmp 7.Otolia-bulk-specific-kmers.cutoff10to20-from-none_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 7.Otolia-bulk
--specific-kmers.cutoff10to20-from-none_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam
+samtools sort -T 1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list.kmer.fq.sai.sort.tmp 1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 1.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam &
+
+samtools sort -T 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq.sai.sort.tmp 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 2.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam &
+
+samtools sort -T 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list.kmer.fq.sai.sort.tmp 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 3.Otolia-bulk-specific-kmers.cutoff10to20-not-in-Laura_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam &
+
+samtools sort -T 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.sort.tmp 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 4.Otolia-bulk-specific-kmers.cutoff10to20-in-common-with-Laura_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam
+
+samtools sort -T 5.Otolia-bulk-specific-kmers.cutoff10to20-from-Laura_31_0_diff1.list.kmer.fq.sai.sort.tmp 5.Otolia-bulk-specific-kmers.cutoff10to20-from-Laura_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 5.Otolia-bulk-specific-kmers.cutoff10to20-from-Laura_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam &
+
+samtools sort -T 6.Otolia-bulk-specific-kmers.cutoff10to20-from-Kuba_31_0_diff1.list.kmer.fq.sai.sort.tmp 6.Otolia-bulk-specific-kmers.cutoff10to20-from-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 6.Otolia-bulk-specific-kmers.cutoff10to20-from-Kuba_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam &
+
+samtools sort -T 7.Otolia-bulk-specific-kmers.cutoff10to20-from-none_31_0_diff1.list.kmer.fq.sai.sort.tmp 7.Otolia-bulk-specific-kmers.cutoff10to20-from-none_31_0_diff1.list.kmer.fq.sai.tmp.bam -o 7.Otolia-bulk-specific-kmers.cutoff10to20-from-none_31_0_diff1.list.kmer.fq.sai.tmp.srt.bam
+
 ```
 ### Counting kmers mapped to the individual chromosomes of the genome in 1MB windows
 ```sh
