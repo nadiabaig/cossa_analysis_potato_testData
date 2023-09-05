@@ -275,7 +275,7 @@ plt.tight_layout()
 plt.show()
 ```
 ### Here is the example output of the afforementioned code
-![Imgur Image](http://i.imgur.com/zTONrOD)
+![Imgur Image](https://github.com/nadiabaig/cossa_analysis_potato_testData/blob/main/example.png)
 
 ### Variant calling, preprocessing and quality filtering
 ```sh
