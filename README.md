@@ -15,7 +15,7 @@ Modified pipeline to get the kmers and SNPs for a potato test dataset
 * Variant calling and filtering
 * Annotation of filtered variants
 
- -  (&#x1F534;)  Considering 200X coverage for the genotypes, the whole pipeline might take 2-3 working days on a linux server with 256GB RAM !
+ -  (&#x1F534;)  Considering 200X coverage for the genotypes, the whole pipeline might take 4-5 working days on a linux server with 256GB RAM !
 
    <!-- GETTING STARTED -->
 ## :desktop_computer: Getting Started
