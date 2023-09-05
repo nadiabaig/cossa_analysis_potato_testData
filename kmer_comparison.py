@@ -1,3 +1,8 @@
+__author__ = "Software Authors Name"
+__copyright__ = "Copyright (C) 2004 Author Name"
+__license__ = "Public Domain"
+__version__ = "1.0"
+
 import pandas as pd
 
 # Read files into pandas DataFrames
