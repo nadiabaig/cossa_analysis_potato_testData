@@ -274,6 +274,8 @@ plt.tight_layout()
 # Show the plots
 plt.show()
 ```
+### Here is the example output of the afforementioned code
+![Imgur Image](http://i.imgur.com/zTONrOD)
 
 ### Variant calling, preprocessing and quality filtering
 ```sh
