@@ -88,6 +88,7 @@ glistmaker $fastq11 -w 31 -o $path/Otolia.all.read1
 
 glistmaker $fastq22 -w 31 -o $path/Otolia.all.read2
 echo {"step1 completed"}
+#repeat the same with other datasets too
 ```
 ### Kmers table generation
 ```sh
