@@ -57,6 +57,7 @@ sudo apt-get -y install bcftools
 ```
 
 6. Freebayes
+   
 ```sh
 sudo apt-get install freebayes
 ```
