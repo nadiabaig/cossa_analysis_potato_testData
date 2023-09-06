@@ -358,8 +358,9 @@ now run
 ```
 ```diff
 + Note: Save the afforementioned script in a single bash file and use wait command after each step to run it as a pipeline. Properly set your input/output, installed softwares paths to avoid errors. If the computational power (RAM) of your server isn"t high, then run the scripts in chunks (i.e one step at a time) to avoid out of memory errors.
+```
 
-# References
+### References
 1. https://github.com/cprodhom/CoSSA-workflows
 
 
