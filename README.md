@@ -67,6 +67,13 @@ sudo apt-get install freebayes
  sudo apt -y install igv  
 ```
 
+8. snpEff
+```sh
+You can download SnpEff from http://snpeff.sourceforge.net/.
+For istallation, simply unpack the zip file using
+unzip file_name.zip
+```
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 ### Setting paths of the required tools and input data
@@ -326,7 +333,19 @@ done
 ### Variant Annotation
 ```sh
 !/bin/bash
-aaa
+1. Make datadirecotry with subdirectories
+mkdir /snpEff/data/genome
+mkdir /snpEff/data/Potato_v1
+
+2. copy the gene annotation file either gff or gtf (I used gff)
+cp Potato_v1.gff  /snpEff/data/Potato_v1
+mv Potato_v1.gff genes.gff
+3. copy the reference genome into /snpEff/data/genomes
+mv ref.fa  Potato_v1.fa
+
+now run
+ java -jar snpEff.jar build -gff2 -v Potato_v1
+
 ```
 ```diff
 + Note: Save the afforementioned script in a single bash file and use wait command after each step to run it as a pipeline. Properly set your input/output, installed softwares paths to avoid errors. If the computational power (RAM) of your server isn"t high, then run the scripts in chunks (i.e one step at a time) to avoid out of memory errors.
