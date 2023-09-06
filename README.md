@@ -237,16 +237,20 @@ done
 #Note merge all *.bins from chromosmes into 1 txt file for each set algebra operation. If you have more than 2 set algebra comparsions then you can add dfs in dataframes= ... section of the code.
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+
+# Define the file paths #"Otolia_inherited_from_Both.txt"
+file_paths = ["Otolia_inherited_from_None.txt", "Otolia_inherited_from_Both.txt", "OTOLIA_inherited_from_Laura.txt","OTOLIA_inhertite_from_Kuba.txt"]
+
 
 # Load multiple dataframes
-dataframes = [pd.read_csv("merged_kmers.txt", sep="\t"),
-              pd.read_csv("merged_2_otolia.txt", sep="\t")]
-              #pd.read_csv("merged_2_otolia_3.txt", sep="\t")
+dataframes = [pd.read_csv(file_path, sep="\t") for file_path in file_paths]
 
-
+# Extract filenames without the ".txt" extension
+file_names = [os.path.splitext(os.path.basename(file_path))[0] for file_path in file_paths]
 
 # Create a list of colors for differentiating dataframes
-colors = ['green', 'blue']
+colors = ['green', 'blue', 'red','orange']
 
 # Get unique chromosome names from the first dataframe (assuming they are the same for all dataframes)
 chromosomes = dataframes[0]['chromosome'].unique()
@@ -266,14 +270,19 @@ for i, chromosome in enumerate(chromosomes):
     ax = axes[i]
     for j, dataframe in enumerate(dataframes):
         chromosome_data = dataframe[dataframe['chromosome'] == chromosome]
-        ax.plot(chromosome_data['start'], chromosome_data['unique_kmers'], linestyle='-', color=colors[j], label=f'Dataframe {j+1}')
+        x = chromosome_data['start'] / 1000000  # Convert to Mb
+        ax.plot(x, chromosome_data['unique_kmers'], linestyle='-', color=colors[j])
     ax.set_ylabel(f'Number of unique Kmers ({chromosome})')
-    ax.set_xlabel('Genome Position')
-    ax.legend()
 
 # Remove any empty subplots if the number of chromosomes is not a multiple of 4
 for i in range(len(chromosomes), num_rows * num_cols):
     fig.delaxes(axes[i])
+
+# Set a common x-axis label
+axes[-1].set_xlabel('Genome Position (Mb)')
+
+# Add file name labels outside the complete plot
+fig.legend(file_names, loc='lower right', ncol=len(file_names))
 
 # Adjust layout for better spacing
 plt.tight_layout()
