@@ -355,6 +355,16 @@ mv ref.fa  Potato_v1.fa
 now run
  java -jar snpEff.jar build -gff2 -v Potato_v1
 
+Potato database building failed with the provided gff files that why I used already avaialable database of potato, to do so
+
+1. Download the database first in data folder
+ java -jar snpEff.jar download Solanum_tuberosum
+
+2. Run the annotation command
+
+
+
+
 ```
 ```diff
 + Note: Save the afforementioned script in a single bash file and use wait command after each step to run it as a pipeline. Properly set your input/output, installed softwares paths to avoid errors. If the computational power (RAM) of your server isn"t high, then run the scripts in chunks (i.e one step at a time) to avoid out of memory errors.
