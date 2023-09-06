@@ -361,7 +361,7 @@ Potato database building failed with the provided gff files that why I used alre
  java -jar snpEff.jar download Solanum_tuberosum
 
 2. Run the annotation command
-
+java -jar /mnt/d/Softwares/snpEff/snpEff.jar Solanum_tuberosum your_vcf.filtered.vcf > your_vcf.filtered.vcf.ann
 
 
 
