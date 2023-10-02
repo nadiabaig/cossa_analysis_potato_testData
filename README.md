@@ -366,7 +366,6 @@ java -jar /mnt/d/Softwares/snpEff/snpEff.jar Solanum_tuberosum your_vcf.filtered
 
 ```
 
-```
 ### extracting info of mapped kmers
 ```sh
  samtools view -F4 WU18-3664-HR.WU18-3664-NR.subtract.Saphir.intersect.Deodara.subtract.sgenome.subtract.fq.sai.tmp.srt.bam | awk '{print $3 "\t" $4 "\t" $10}' > Mapped_kmers_info_sen3.csv
