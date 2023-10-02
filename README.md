@@ -364,8 +364,13 @@ Potato database building failed with the provided gff files that why I used alre
 java -jar /mnt/d/Softwares/snpEff/snpEff.jar Solanum_tuberosum your_vcf.filtered.vcf > your_vcf.filtered.vcf.ann
 
 
+```
+### extracting info of mapped kmers
+```sh
+ samtools view -F4 WU18-3664-HR.WU18-3664-NR.subtract.Saphir.intersect.Deodara.subtract.sgenome.subtract.fq.sai.tmp.srt.bam | awk '{print $3 "\t" $4 "\t" $10}' > Mapped_kmers_info_sen3.csv
 
 ```
+
 ```diff
 + Note: Save the afforementioned script in a single bash file and use wait command after each step to run it as a pipeline. Properly set your input/output, installed softwares paths to avoid errors. If the computational power (RAM) of your server isn"t high, then run the scripts in chunks (i.e one step at a time) to avoid out of memory errors.
 ```
